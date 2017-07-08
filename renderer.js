@@ -5,7 +5,7 @@
 const Sonus = require('sonus')
 const path = require('path')
 const speech = require('@google-cloud/speech')({
-  projectId: 'streaming-speech-sample',
+  projectId: 'smart-mirror',
   keyFilename: path.resolve('./keyfile.json')
 })
 
