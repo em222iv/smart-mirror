@@ -1,3 +1,4 @@
+var webpack = require("webpack");
 module.exports={
   entry:'./renderer.js',
   output:{
@@ -14,5 +15,10 @@ module.exports={
         }
       }
     ]
-  }
+  },
+  plugins: [
+   new webpack.DefinePlugin({
+     IN_BROWSER: true,
+   })
+ ]
 }
