@@ -4,6 +4,7 @@ const speech = require('@google-cloud/speech')({
   projectId: 'smart-mirror',
   keyFilename: path.resolve('./keyfile.json')
 })
+var player = require('play-sound')({})
 
 import { store } from './app/store'
 import React from 'react';
@@ -30,32 +31,49 @@ ReactDOM.render(
 
 
 //SPEECH TO TEXT SECTION
-const hotwords = [{ file: path.resolve('node_modules/sonus/resources/sonus.pmdl'), hotword: 'sonus' }]
+const hotwords = [
+  // { file: path.resolve('assets/NavI.pmdl'), hotword: 'NaVi' },
+  { file: path.resolve('assets/Hey_Navi.pmdl'), hotword: 'Hey Navi' },
+  { file: path.resolve('assets/hey_navi_2.pmdl'), hotword: 'Hey Navi2' }
+]
 const language = "sv-SE"
 
 const sonus = Sonus.init({ hotwords, language, recordProgram: "rec" }, speech)
-
 Sonus.start(sonus)
-console.log('Say "' + hotwords[0].hotword + '"...')
+// console.log('Say "' + hotwords[0].hotword + '"...')
 
 sonus.on('hotword', (index, keyword) => {
+  if(store.getState().speech.listening)
+    return;
+
   store.dispatch({type:'LISTENING', payload:true})
+  
+  // let answer = getRandomAnswer()
+  // player.play(answer, function(err){
+  //   if (err) console.log('SOUND ERROR', err)
+  // })
+
   console.log("Activated with: " + keyword)
 })
 
-sonus.on('partial-result', result =>{
-   console.log("processing: ", result)
+sonus.on('partial-result', result => {
    store.dispatch({type:'UPDATE', payload:result})
+   console.log("processing: ", result)
  })
 
 sonus.on('final-result', result => {
   console.log("You said: ", result)
   store.dispatch({type:'UPDATE', payload:result})
   setTimeout(() => {
-    store.dispatch({type:'LISTENING', payload:false})
-    store.dispatch({type:'UPDATE', payload:''})
+    store.dispatch({type:'EMPTY'})
   },3000)
-  // if (result.includes("stop")) {
-  //   Sonus.stop() // Will shut down the Sonus program entirely
-  // }
+  if (result.includes("nothing")) {
+    store.dispatch({type:'EMPTY'})
+    // Sonus.stop() // Will shut down the Sonus program entirely
+  }
 })
+
+function getRandomAnswer() {
+  let answers = ['./assets/Navi_Hello1.wav','./assets/Navi_Hey2.wav']
+  return answers[Math.floor(Math.random()*answers.length)]
+};

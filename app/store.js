@@ -12,12 +12,14 @@ const initialState = {
 
 import speech from './Plugins/Speech/ducks'
 import forecast from './Plugins/Forecast/ducks'
+import plugins from './components/pluginContainer/ducks'
 
 export function configureStore() {
   const store = createStore(
     combineReducers({
       speech,
-      forecast
+      forecast,
+      plugins
     }),
     applyMiddleware(thunk),
   )

@@ -5,6 +5,8 @@ import React, {
 import { connect } from 'react-redux';
 import { StyleSheet, css } from 'aphrodite';
 
+import Navi from '../../components/Navi'
+
 export class Speech extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +18,20 @@ export class Speech extends Component {
       <span>{" '' "+ text +" '' "}</span>
     )
   }
+  renderNavi() {
+    const {listening} = this.props;
+    if(!listening) return null;
+    return (
+        <Navi />
+    )
+  }
   render() {
     return (
         <div id="container">
-          <div className={css(styles.spokenText)}>
-            <h1>What can I do for you?</h1>
+          <div className={css(styles.text)}>
+            <h1>Hey, Listen!</h1>
           </div>
+          {this.renderNavi()}
           <div className={css(styles.spokenText)}>
             {this.renderSpokenText()}
           </div>
@@ -31,7 +41,13 @@ export class Speech extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
   spokenText: {
+    marginTop:250,
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -41,6 +57,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
     return {
+      listening: state.speech.listening,
       text: state.speech.text
     }
   }

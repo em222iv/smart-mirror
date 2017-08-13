@@ -2,6 +2,7 @@
 // Constants
 const LISTENING = 'LISTENING';
 const UPDATE = 'UPDATE';
+const EMPTY = 'EMPTY';
 
 const initialState = {
   text: "",
@@ -12,7 +13,6 @@ const initialState = {
 export default function speech(state = initialState, action) {
   switch (action.type) {
   case UPDATE:
-    console.log('reducer updated with: ', action.payload)
     if(action.payload.length === 0)
       return Object.assign({}, state, {
         text:action.payload
@@ -20,6 +20,13 @@ export default function speech(state = initialState, action) {
     return Object.assign({}, state, {
         text:action.payload
       });
+
+    case EMPTY:
+      return Object.assign({}, state, {
+          text:"",
+          listening:false
+        });
+
     case LISTENING:
       return Object.assign({}, state, {
           listening:action.payload
@@ -32,6 +39,9 @@ export default function speech(state = initialState, action) {
 // Action Creators
 export function update(payload) {
   return { type: UPDATE, payload };
+}
+export function empty() {
+  return { type: EMPTY };
 }
 
 export function listening(payload) {

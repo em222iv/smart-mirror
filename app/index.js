@@ -4,19 +4,20 @@ import { connect } from 'react-redux';
 import Forecast from './Plugins/Forecast'
 import DatePLugin from './Plugins/DatePlugin'
 import Speech from './Plugins/Speech'
+import PluginContainer from './components/PluginContainer'
 
 import { StyleSheet, css } from 'aphrodite';
-import { fadeIn, fadeOut } from 'react-animations';
+import { fadeIn, fadeOut, zoomIn } from 'react-animations';
 
 export class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      speechFade: css(styles.invisible)
+      speechFade: styles.invisible
     }
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({speechFade: nextProps.listening ? css(styles.fadeIn) : css(styles.fadeOut)})
+    this.setState({speechFade: nextProps.listening ? styles.fadeIn : styles.fadeOut})
   }
   render() {
     const {speechFade} = this.state;
@@ -30,9 +31,10 @@ export class App extends Component {
             <Forecast />
           </div>
         </div>
-        <div className={speechFade}>
+        <div className={css(speechFade, styles.speechContainer)}>
           <Speech />
         </div>
+        <PluginContainer />
       </div>
     );
   }
@@ -42,8 +44,23 @@ const styles = StyleSheet.create({
   dashboard: {
       width:'100%'
   },
+  pluginContainer: {
+    width:'100%',
+    height:500,
+    backgroundColor:'#9E9E9E',
+    backgroundImage: 'url("http://www.orangesmile.com/destinations/img/stockholm-map-metro-big.gif")'
+  },
+  speechContainer:{
+    height:500,
+    width:'100%',
+    position:'absolute',
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row',
+   background: 'rgba(4, 43, 56,0.8)'
+  },
   fadeIn: {
-      animation: 'fadeIn 3s',
+      animation: 'fadeIn 2s',
       animationName: fadeIn,
       opacity:1
   },
@@ -51,6 +68,10 @@ const styles = StyleSheet.create({
       animation: 'fadeOut 1s',
       animationName: fadeOut,
       opacity:0
+  },
+  zoomIn: {
+      animation: '1s',
+      animationName: zoomIn,
   },
   invisible: {
     opacity:0
@@ -71,7 +92,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-      listening: state.speech.listening
+      listening: state.speech.listening,
     }
   }
 
