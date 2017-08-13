@@ -33,7 +33,7 @@ ReactDOM.render(
 //SPEECH TO TEXT SECTION
 const hotwords = [
   // { file: path.resolve('assets/NavI.pmdl'), hotword: 'NaVi' },
-  { file: path.resolve('assets/Hey_Navi.pmdl'), hotword: 'Hey Navi' },
+  // { file: path.resolve('assets/Hey_Navi.pmdl'), hotword: 'Hey Navi' },
   { file: path.resolve('assets/hey_navi_2.pmdl'), hotword: 'Hey Navi2' }
 ]
 const language = "sv-SE"
@@ -47,11 +47,10 @@ sonus.on('hotword', (index, keyword) => {
     return;
 
   store.dispatch({type:'LISTENING', payload:true})
-  
-  // let answer = getRandomAnswer()
-  // player.play(answer, function(err){
-  //   if (err) console.log('SOUND ERROR', err)
-  // })
+
+  player.play(getRandomNaviQuote(), function(err){
+    if (err) console.log('SOUND ERROR', err)
+  })
 
   console.log("Activated with: " + keyword)
 })
@@ -66,14 +65,14 @@ sonus.on('final-result', result => {
   store.dispatch({type:'UPDATE', payload:result})
   setTimeout(() => {
     store.dispatch({type:'EMPTY'})
-  },3000)
+  },1000)
   if (result.includes("nothing")) {
     store.dispatch({type:'EMPTY'})
     // Sonus.stop() // Will shut down the Sonus program entirely
   }
 })
 
-function getRandomAnswer() {
+function getRandomNaviQuote() {
   let answers = ['./assets/Navi_Hello1.wav','./assets/Navi_Hey2.wav']
   return answers[Math.floor(Math.random()*answers.length)]
 };

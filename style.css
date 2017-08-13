@@ -39,7 +39,7 @@ span {
 	width: 500px;
 	left: 50%;
 	margin-left: -250px;
-	top: 80px;
+	top: 100px;
 	animation: voo 6s ease-in-out infinite;
 }
 

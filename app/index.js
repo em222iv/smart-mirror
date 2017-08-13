@@ -9,6 +9,8 @@ import PluginContainer from './components/PluginContainer'
 import { StyleSheet, css } from 'aphrodite';
 import { fadeIn, fadeOut, zoomIn } from 'react-animations';
 
+import Navi from './components/Navi'
+
 export class App extends Component {
   constructor(props) {
     super(props)
@@ -19,13 +21,23 @@ export class App extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({speechFade: nextProps.listening ? styles.fadeIn : styles.fadeOut})
   }
+  renderNavi() {
+    const {listening} = this.props;
+    return (
+        <Navi />
+    )
+  }
   render() {
     const {speechFade} = this.state;
     return (
       <div className={css(styles.dashboard)}>
+
         <div className={css(styles.topContainer)}>
           <div className={css(styles.leftContainer, styles.fadeIn)}>
             <DatePLugin />
+          </div>
+          <div className={css(speechFade)}>
+            {this.renderNavi()}
           </div>
           <div className={css(styles.rightContainer, styles.fadeIn)}>
             <Forecast />
@@ -51,13 +63,14 @@ const styles = StyleSheet.create({
     backgroundImage: 'url("http://www.orangesmile.com/destinations/img/stockholm-map-metro-big.gif")'
   },
   speechContainer:{
-    height:500,
+    height:250,
+    marginTop:125,
     width:'100%',
     position:'absolute',
     justifyContent:'center',
     alignItems:'center',
     flexDirection:'row',
-   background: 'rgba(4, 43, 56,0.8)'
+    background: 'rgba(4, 43, 56,0.8)'
   },
   fadeIn: {
       animation: 'fadeIn 2s',

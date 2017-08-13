@@ -17,10 +17,13 @@ export class Weather extends Component {
   }
   componentDidMount() {
      this.props.updateWeather()
+     setInterval(() => {
+       this.props.updateWeather()
+     },300000)
   }
   renderForecastItem(item,i) {
     return (
-      <div key={i} className={css(styles.weatherForecasts)}>
+      <div key={i} className={css(styles.row)}>
           <span className={css(styles.weekDay)}>{week[today.getDay()+(i+1)]/* +1 to get tomorrow date and so on */}</span>
           <span className={css(styles.forecastTemps)}>{item.temp} ° C</span>
       </div>
@@ -32,8 +35,10 @@ export class Weather extends Component {
 
     return (
       <div>
-        <span className={css(styles.weatherTemp)}> {forecast.today.temp} ° C</span>
-        <p className={css(styles.weatherMisc)}> Misc: {forecast.today.desc}  |  {forecast.today.windspeed} |  {forecast.today.hum} % HUM</p>
+        <span className={css(styles.weatherTemp)}> {forecast.today.temp}° C</span>
+        <div className={css(styles.row)}>
+        <span className={css(styles.weatherMisc)}> Misc: {forecast.today.desc}  |  {forecast.today.windspeed} |  {forecast.today.hum} % HUM</span>
+        </div>
 
         {forecast.forecast.map((item,i) => this.renderForecastItem(item,i))}
 
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
   forecastTemps: {
     float:'right'
   },
-  weatherForecasts: {
+  row: {
     width:'100%'
   },
   weekDay:{

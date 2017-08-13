@@ -2,10 +2,6 @@ import React, {
   Component,
 } from 'react';
 
-const week = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ["January", "February", "March", "April", "May", "June",
-"July", "August", "September", "October", "November", "December"];
-const today = new Date();
 import { StyleSheet, css } from 'aphrodite';
 
 export default class DatePLugin extends Component {
@@ -17,14 +13,22 @@ export default class DatePLugin extends Component {
   }
   componentDidMount() {
     this.setState({date: getFormattedDate()})
+    setInterval(() => {
+      this.setState({date: getFormattedDate()})
+    },30000)
   }
   render() {
     const { date } = this.state;
     if(!date) return null;
 
     return (
-      <div className="fadeIn">
-        <p className={css(styles.dateDate)}>{date.dayText}, {date.month} {date.day} {date.year}</p>
+      <div className={css(styles.dateContainer)}>
+        <div className={css(styles.row)}>
+          <span className={css(styles.place)}>Pyrolavägen 28, 18162, Lidingö</span>
+        </div>
+        <div className={css(styles.row)}>
+          <span className={css(styles.dateDate)}>{date.dayText}, {date.month} {date.day} {date.year}</span>
+        </div>
         <span className={css(styles.dateTime)}>{date.hour}:{date.min}</span>
       </div>
     );
@@ -32,15 +36,29 @@ export default class DatePLugin extends Component {
 }
 
 const styles = StyleSheet.create({
+  dateContainer:{
+    marginTop:20
+  },
+  row:{
+    width:'100%'
+  },
   dateTime: {
     fontSize: 100,
   },
   dateDate: {
     fontSize: 30,
+  },
+  place: {
+    fontSize: 20,
   }
 });
 
+const week = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const months = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];
+
 function getFormattedDate() {
+    let today = new Date();
     let day  = week[today.getDay()];
     let dd   = today.getDate();
     let mm   = months[today.getMonth()]; //January is 0!
