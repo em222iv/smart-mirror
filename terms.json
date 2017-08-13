@@ -1,0 +1,14 @@
+{
+  "go home": {
+    "screen":"dashboard",
+    "data":"Dashboard - ask Sonus about the weather('what's the weather') or yourself ('Who am i')"
+  },
+  "what's the weather": {
+    "screen":"weather",
+    "data":22
+  },
+  "who am i": {
+    "screen":"me",
+    "data":"just aweomse"
+  }
+}

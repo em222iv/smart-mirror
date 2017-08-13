@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "HelveticaNeue-Thin";
+    src: url("assets/HelveticaNeue-UltraLight.ttf");
+    /* EOT file for IE */
+}
+p {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
+h1 {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
+h2 {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
+h3 {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
+h4 {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
+h5 {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
+span {
+  color:white;
+  font-family: "HelveticaNeue-Thin";
+}
