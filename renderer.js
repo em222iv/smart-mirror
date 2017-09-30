@@ -10,6 +10,7 @@ import { store } from './app/store'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+var interpretor = require('./utils/speechInterpreter.js')
 //APPLICATION
 import App from './app'
 
@@ -54,6 +55,7 @@ sonus.on('partial-result', result => {
 
 sonus.on('final-result', result => {
   console.log("You said: ", result)
+  interpretor(result);
   store.dispatch({type:'UPDATE', payload:result})
   setTimeout(() => {
     store.dispatch({type:'EMPTY'})

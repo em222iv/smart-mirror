@@ -18,6 +18,7 @@ export function configureStore() {
       }
     })
   })
+  console.log('ducks',ducks)
   const store = createStore(
     combineReducers(ducks),
     applyMiddleware(thunk),

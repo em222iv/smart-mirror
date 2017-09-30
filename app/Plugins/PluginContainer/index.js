@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 
 import { StyleSheet, css } from 'aphrodite';
 import { fadeIn, fadeOut, zoomIn } from 'react-animations';
-import {empty,listening} from '../../Plugins/Speech/ducks'
+import {empty,listening} from '../Speech/ducks'
+import Map from '../Map'
 
-export class App extends Component {
+export class pluginContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
       show: false
     }
   }
+
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.plugin != undefined) {
       this.props.empty()
@@ -23,10 +26,22 @@ export class App extends Component {
 
   renderCurrentPlugin() {
     const {plugin} = this.state;
-    return (
-      <div className={css(styles.pluginContainer, plugin ? styles.zoomIn : styles.fadeOut )}>
-      </div>
-    )
+
+    switch (plugin) {
+      case 'Karta':
+        return (
+            <div className={css(styles.pluginContainer, plugin ? styles.zoomIn : styles.fadeOut )}>
+            <Map place={plugin}/>
+             </div>
+           )
+        break;
+      default:
+      return (
+        <div className={css(styles.pluginContainer, plugin ? styles.zoomIn : styles.fadeOut )}>
+        </div>
+      )
+
+    }
   }
   render() {
     const {plugin} = this.state;
@@ -40,7 +55,6 @@ const styles = StyleSheet.create({
     width:'100%',
     height:500,
     backgroundColor:'#9E9E9E',
-    backgroundImage: 'url("http://www.orangesmile.com/destinations/img/stockholm-map-metro-big.gif")',
   },
   fadeIn: {
       animation: 'fadeIn 2s',
@@ -59,8 +73,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state)
     return {
-      plugin: state.plugins.plugin
+      plugin: state.plugincontainer.plugin
     }
   }
 
@@ -72,4 +87,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(pluginContainer);

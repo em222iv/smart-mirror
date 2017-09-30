@@ -7,7 +7,7 @@ const initialState = {
 }
 
 // Reducer
-export default function plugins(state = initialState, action) {
+export default function plugincontainer(state = initialState, action) {
   switch (action.type) {
   case UPDATE:
     switch (action.payload) {

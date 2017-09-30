@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Forecast from './Plugins/Forecast'
 import DatePLugin from './Plugins/DatePlugin'
 import Speech from './Plugins/Speech'
-import PluginContainer from './Plugins/plugins'
+import PluginContainer from './Plugins/plugincontainer'
 
 import { StyleSheet, css } from 'aphrodite';
 import { fadeIn, fadeOut, zoomIn } from 'react-animations';
