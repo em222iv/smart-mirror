@@ -14,5 +14,18 @@
     require("babel-register");
     require('./renderer.js')
   </script>
+  <script>
+    let tree = require('./utils/fileIterator.js')
+    tree.plugins.forEach(plugin => {
+        plugin.children.forEach(file => {
+          if(file.extension === '.css'){
+              let link=document.createElement('link');
+              link.href=file.path;
+              link.rel='stylesheet';
+              document.getElementsByTagName('head')[0].appendChild(link);
+          }
+        })
+      })
 
+  </script>
 </html>

@@ -5,22 +5,21 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-const initialState = {
-  speech: {},
-  forecast:{}
-}
-
-import speech from './Plugins/Speech/ducks'
-import forecast from './Plugins/Forecast/ducks'
-import plugins from './components/pluginContainer/ducks'
+var tree = require('../utils/fileIterator.js');
+var ducks = {}
 
 export function configureStore() {
+  tree.plugins.forEach(plugin => {
+    plugin.children.forEach(file => {
+      if(file.name === 'ducks.js') {
+        let key = plugin.name.toLowerCase();
+        let val = require(file.path).default
+        Object.assign(ducks, {[key]:val})
+      }
+    })
+  })
   const store = createStore(
-    combineReducers({
-      speech,
-      forecast,
-      plugins
-    }),
+    combineReducers(ducks),
     applyMiddleware(thunk),
   )
   return store;
