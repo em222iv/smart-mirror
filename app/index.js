@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Forecast from './Plugins/Forecast'
 import DatePLugin from './Plugins/DatePlugin'
 import Speech from './Plugins/Speech'
+import PhilipsHue from './Plugins/PhilipsHue'
 import PluginContainer from './Plugins/plugincontainer'
 
 import { StyleSheet, css } from 'aphrodite';
@@ -43,10 +44,12 @@ export class App extends Component {
             <Forecast />
           </div>
         </div>
+        <PhilipsHue/>
         <div className={css(speechFade, styles.speechContainer)}>
           <Speech />
         </div>
         <PluginContainer />
+
       </div>
     );
   }

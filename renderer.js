@@ -14,6 +14,8 @@ var interpretor = require('./utils/speechInterpreter.js')
 //APPLICATION
 import App from './app'
 
+import {setLightOn, setLightOff, setLightRGB} from './app/Plugins/PhilipsHue/ducks'
+
 //DOM INJECT
 ReactDOM.render(
     <Provider store={store}>
@@ -57,6 +59,31 @@ sonus.on('final-result', result => {
   console.log("You said: ", result)
   interpretor(result);
   store.dispatch({type:'UPDATE', payload:result})
+
+  switch (result.toLowerCase()) {
+    case 'turn light on':
+      store.dispatch(setLightOn(1))
+      break;
+    case 'turn light off':
+      store.dispatch(setLightOff(1))
+      break;
+    case 'turn light purple':
+      console.log('here')
+      store.dispatch(setLightRGB(1,{red:127,green:0,blue:255}))
+      break;
+    case 'turn light turquoise':
+      store.dispatch(setLightRGB(1,{red:204,green:255,blue:204}))
+      break;
+    case 'turn light white':
+      store.dispatch(setLightRGB(1,{red:255,green:255,blue:255}))
+      break;
+    case 'turn light black':
+      store.dispatch(setLightRGB(1,{red:0,green:0,blue:0}))
+      break;
+    default:
+
+  }
+
   setTimeout(() => {
     store.dispatch({type:'EMPTY'})
   },1000)

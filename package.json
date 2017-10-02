@@ -30,6 +30,7 @@
     "babel-preset-react": "^6.16.0",
     "directory-tree": "^2.0.0",
     "google-map-react": "^0.24.0",
+    "node-hue-api": "^2.4.2",
     "play-sound": "^1.1.1",
     "react": "^15.6.1",
     "react-animations": "^0.1.0",
