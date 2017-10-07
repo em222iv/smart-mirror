@@ -55,29 +55,30 @@ sonus.on('partial-result', result => {
    console.log("processing: ", result)
  })
 
-sonus.on('final-result', result => {
+sonus.on('final-result',  async(result) => {
   console.log("You said: ", result)
-  interpretor(result);
-  store.dispatch({type:'UPDATE', payload:result})
 
-  switch (result.toLowerCase()) {
-    case 'turn light on':
+  let answer = await interpretor(result);
+  store.dispatch({type:'UPDATE', payload:result})
+  
+  switch (answer) {
+    case 'turn the lights on':
       store.dispatch(setLightOn(1))
       break;
-    case 'turn light off':
+    case 'turn the lights off':
+      console.log('here')
       store.dispatch(setLightOff(1))
       break;
-    case 'turn light purple':
-      console.log('here')
+    case 'turn the lights purple':
       store.dispatch(setLightRGB(1,{red:127,green:0,blue:255}))
       break;
-    case 'turn light turquoise':
+    case 'turn the lights turquoise':
       store.dispatch(setLightRGB(1,{red:204,green:255,blue:204}))
       break;
-    case 'turn light white':
+    case 'turn the lights white':
       store.dispatch(setLightRGB(1,{red:255,green:255,blue:255}))
       break;
-    case 'turn light black':
+    case 'turn the lights black':
       store.dispatch(setLightRGB(1,{red:0,green:0,blue:0}))
       break;
     default:

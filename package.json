@@ -39,6 +39,7 @@
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "sonus": "^0.1.7",
+    "string_score": "^0.1.22",
     "thunks": "^4.8.0",
     "weather-js": "^2.0.0"
   },
