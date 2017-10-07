@@ -17,6 +17,11 @@ var displayStatus = function(status) {
 export const hueApi = {
 
   getFullState: async () => {
+     let bridge = await hue.nupnpSearch()
+     console.log(bridge)
+     host = bridge[0].ipaddress
+     api =  new HueApi(host, username)
+     console.log('host',host,api)
      return await api.getFullState()
    },
 

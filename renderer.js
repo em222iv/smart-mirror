@@ -60,13 +60,12 @@ sonus.on('final-result',  async(result) => {
 
   let answer = await interpretor(result);
   store.dispatch({type:'UPDATE', payload:result})
-  
+
   switch (answer) {
     case 'turn the lights on':
       store.dispatch(setLightOn(1))
       break;
     case 'turn the lights off':
-      console.log('here')
       store.dispatch(setLightOff(1))
       break;
     case 'turn the lights purple':
